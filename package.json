@@ -1,0 +1,16 @@
+{
+  "name": "tvdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node tvdb.js",
+    "login": "sh login.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
+}
