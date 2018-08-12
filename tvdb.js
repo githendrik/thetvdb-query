@@ -12,15 +12,17 @@ if (!authToken) {
 
 async function getShow(showName) {
   try {
-    const show = await api.search(showName, authToken);
-    console.log(`Found show for query "${showName}": "${show.seriesName}"`);
-
-    const cachedShow = fs.read().find(cache => cache.show == show.seriesName);
+    const cachedShow = fs.read().find(cache => cache.searchTerm == showName);
     if (cachedShow) {
-      console.log("=> already in cache");
+      console.log(`${showName} => already in cache, skipping`);
       return cachedShow;
     } else {
-      console.log("=> not in cache, getting episodes");
+      const show = await api.search(showName, authToken);
+      console.log(
+        `Found show for query "${showName}": "${
+          show.seriesName
+        }", getting episodes`
+      );
       const episodes = await api.getEpisodes(show.id, authToken);
 
       const mappedEpisodes = episodes.map(
@@ -40,7 +42,7 @@ async function getShow(showName) {
 }
 
 async function run() {
-  const series = ["Weeds", "House of Cards (US)"];
+  const series = ["Weeds", "House of Cards (US)", "Simpsons"];
 
   const promises = [];
   await series.forEach(async function(serie) {
