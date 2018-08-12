@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node tvdb.js",
-    "login": "sh login.sh"
+    "login": "sh login.sh",
+    "postinstall": "mkdir -p results"
   },
   "keywords": [],
   "author": "",

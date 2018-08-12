@@ -15,7 +15,6 @@ function read() {
     const fileContents = fs.readFileSync(resultsFile, "utf-8");
     cache = JSON.parse(fileContents);
   } catch (e) {
-    console.log(`Unable to read ${resultsFile}, initializing empty file`);
   }
 
   return cache;
