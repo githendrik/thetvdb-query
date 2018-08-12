@@ -19,6 +19,7 @@ const search = (show = "", authToken = "") =>
           } else if (r.Error) {
             reject(r.Error);
           } else {
+            // console.log(JSON.parse(body));
             resolve(JSON.parse(body).data[0]);
           }
         }
@@ -47,13 +48,9 @@ const getEpisodes = (showId = "", authToken = "") =>
             if (results.Error) {
               // No hits
             } else {
+              // console.log(results.data);
               resolve(
-                results.data.filter(ep => ep.airedSeason > 0).map(ep => ({
-                  title: ep.episodeName,
-                  season: ep.airedSeason,
-                  episode: ep.airedEpisodeNumber,
-                  aired: ep.firstAired
-                }))
+                results.data.filter(ep => ep.airedSeason > 0)
               );
             }
           }

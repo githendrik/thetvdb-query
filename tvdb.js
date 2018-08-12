@@ -27,11 +27,11 @@ async function getShow(showName) {
       const episodes = await api.getEpisodes(show.id, authToken);
 
       const mappedEpisodes = episodes.map(e => ({
-        season: e.season,
-        episode: e.episode,
-        title: e.title,
-        aired: new Date(e.aired),
-        buzzStart: subWeeks(new Date(e.aired), 1)
+        season: e.airedSeason,
+        episode: e.airedEpisodeNumber,
+        title: e.episodeName,
+        aired: new Date(e.firstAired),
+        buzzStart: subWeeks(new Date(e.firstAired), 1)
       }));
 
       return {
@@ -47,7 +47,7 @@ async function getShow(showName) {
 }
 
 async function run() {
-  const series = ["Weeds", "House of Cards (US)", "Simpsons"];
+  const series = ["Weeds"];
 
   const promises = [];
   await series.forEach(async function(serie) {
