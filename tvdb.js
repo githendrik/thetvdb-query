@@ -1,5 +1,6 @@
 const api = require("./api");
 const fs = require("./fs-io");
+const subWeeks = require("date-fns/sub_weeks");
 
 const authToken = fs.getToken();
 
@@ -25,9 +26,13 @@ async function getShow(showName) {
       );
       const episodes = await api.getEpisodes(show.id, authToken);
 
-      const mappedEpisodes = episodes.map(
-        e => `${e.season}x${e.episode} - ${e.aired}: ${e.title}`
-      );
+      const mappedEpisodes = episodes.map(e => ({
+        season: e.season,
+        episode: e.episode,
+        title: e.title,
+        aired: new Date(e.aired),
+        buzzStart: subWeeks(new Date(e.aired), 1)
+      }));
 
       return {
         show: show.seriesName,
